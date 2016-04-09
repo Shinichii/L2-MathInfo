@@ -22,7 +22,7 @@ void AutomateFileParser::loadFile(string path)
 	}
 	else
 	{
-		if(isDebugged) cout << "[ERREUR] Impossible d'ouvrir le fichier spécifié!" << endl;
+		if(isDebugged) cout << "[ERREUR] Impossible d'ouvrir le fichier spécifié! (" << path << ")" << endl;
 		file.close();
 	}
 }
@@ -32,8 +32,8 @@ Automate* AutomateFileParser::generate()
 {
 	if(!fileLoaded) 
 	{
-		if(isDebugged) cout << "[ERREUR] Impossible de generer l'automate" << endl;
-		return nullptr;
+		if(isDebugged) cout << "[ERREUR] Impossible de generer l'automate (fichier inexistant)" << endl;
+		throw AutomateFileParser::GenerationAutomateException;
 	}
 
 	int nbSymboles, nbEtats, nbTransitions, nbEtatsInitiaux, nbEtatsFinaux;
