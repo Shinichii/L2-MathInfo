@@ -55,6 +55,8 @@ public:
 	void ajouterTransition(Transition t);
 	
 	bool reconnaitMot(string s);
+	bool estSynchrone();
+	bool estDeterministe();
 	bool estComplet();
 
 	void setDebugged(bool b);

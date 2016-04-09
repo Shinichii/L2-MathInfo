@@ -21,11 +21,13 @@
   <ItemGroup>
     <ClInclude Include="Automate.h" />
     <ClInclude Include="AutomateFileParser.h" />
+    <ClInclude Include="AutomateTests.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Automate.cpp" />
     <ClCompile Include="AutomateFileParser.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="AutomateTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="automate_complet1.txt" />
@@ -110,6 +112,12 @@
     <Link>
       <AdditionalLibraryDirectories>C:\Program Files %28x86%29\Microsoft Visual Studio 14.0\VC\lib\amd64;C:\Program Files %28x86%29\Windows Kits\8.0\Lib\win8\um\x64;C:\Program Files %28x86%29\Windows Kits\10\Lib\10.0.10240.0\ucrt\x64;C:\Program Files %28x86%29\Windows Kits\8.1\Lib\winv6.3\um\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command> lib /NOLOGO /OUT:"$(TargetPath).lib" "$(ProjectDir)$(Configuration)\*.obj"</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Exporte les *.obj en un .lib pour les tests unitaires</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
