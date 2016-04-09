@@ -5,6 +5,8 @@
 #include <string>
 #include <algorithm> //Pour std::find
 
+#define private public
+
 using namespace std;
 
 //Classe contenant un automate et sa logique simple
@@ -47,6 +49,8 @@ public:
 	void ajouterSortie(int etat);
 	bool etatEstEntree(int etat);
 	bool etatEstSortie(int etat);
+	bool etatExiste(int etat);
+	void ajouterEtat(int etat);
 	void ajouterTransition(int from, char label, int to);
 	void ajouterTransition(Transition t);
 	bool reconnaitMot(string s);

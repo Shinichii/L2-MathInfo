@@ -1,5 +1,6 @@
 #include "Automate.h"
 
+
 //Cree l'automate vide à partir de son alphabet
 Automate::Automate(string alphabet)
 {
@@ -9,9 +10,9 @@ Automate::Automate(string alphabet)
 //Ajoute une entree a l'automate
 void Automate::ajouterEntree(int etat)
 {
-	bool etatExiste = find(etats.begin(), etats.end(), etat) != etats.end();
+	bool entreeExiste = find(entrees.begin(), entrees.end(), etat) != entrees.end();
 
-	if(!etatExiste)
+	if(!entreeExiste)
 		entrees.push_back(etat);
 	else if(debugged)
 		cout << "[INFO] On ne peut ajouter l'entree " << etat << ", elle existe deja." << endl;
@@ -20,12 +21,25 @@ void Automate::ajouterEntree(int etat)
 //Ajoute une sortie à l'automate
 void Automate::ajouterSortie(int etat)
 {
-	bool etatExiste = find(sorties.begin(), sorties.end(), etat) != sorties.end();
+	bool sortieExiste = find(sorties.begin(), sorties.end(), etat) != sorties.end();
 
-	if(!etatExiste)
+	if(!sortieExiste)
 		sorties.push_back(etat);
 	else if(debugged)
 		cout << "[INFO] On ne peut ajouter la sortie " << etat << ", elle existe deja." << endl;
+}
+
+//Indique si l'etat existe
+bool Automate::etatExiste(int etat)
+{
+	return find(etats.begin(), etats.end(), etat) != etats.end();
+}
+
+//Ajoute un etat à la liste d'états
+void Automate::ajouterEtat(int etat)
+{
+	if(!etatExiste(etat))
+		etats.push_back(etat);
 }
 
 //Indique si un etat est une entree
@@ -57,6 +71,11 @@ void Automate::ajouterTransition(Transition t)
 	if(!transitionExiste)
 	{
 		transitions.push_back(t);
+
+		if(!etatExiste(t.from))
+			ajouterEtat(t.from);
+		if(!etatExiste(t.to))
+			ajouterEtat(t.to);
 	}
 	else if(debugged)
 		cout << "\t[ERREUR] La transition existe déjà!" << endl;
