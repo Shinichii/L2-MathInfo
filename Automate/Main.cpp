@@ -2,7 +2,6 @@
 #include <string>
 #include "Automate.h"
 
-//Fonction principale pour l'instant peuplée de tests ridicules
 int main(int argc, char * argv[])
 {
 	Automate a("ab");
