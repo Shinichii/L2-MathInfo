@@ -1,16 +1,18 @@
 Afin de configurer le projet de tests unitaires correctement, il faut faire les actions suivantes
 
 - Bouton droit sur "UnitTest1" dans l'explorateur de solutions
-	- PropriÈtÈs > PropriÈtÈs de configuration > RÈpertoires VC++
+	- Propri√©t√©s > Propri√©t√©s de configuration > R√©pertoires VC++
 		- Ajouter dans "Repertoires Include":    "$(SolutionDir)" (sans les guillemets)
 		- Ajouter dans "Repertoires de bibliotheques":        "$(SolutionDir)Debug" (sans les guillemets)
 
 - Bouton droit sur "UnitTest1" dans l'explorateur de solutions
-	- PropriÈtÈs > PropriÈtes de configuration > Editeur de liens > EntrÈe
+	- Propri√©t√©s > Propri√©tes de configuration > Editeur de liens > Entr√©e
 		- Ajouter dans "Dependances supplementaires":    "$(SolutionDir)Debug\Automates.exe.lib"
 
 - Bouton droit sur "Automates" dans l'explorateur de solutions
-	- PropriÈtÈs > PropriÈtÈs de configuration > Evenements de build > Evenements post-build
+	- Propri√©t√©s > Propri√©t√©s de configuration > Evenements de build > Evenements post-build
 		- Lignes de commandes: lib /NOLOGO /OUT:"$(TargetPath).lib" "$(ProjectDir)$(Configuration)\*.obj" (avec guillemets)
 		- Description: "Exporte les *.obj en un .lib pour les tests unitaires" (sans guillemets)
-		- Utilisation dans la gÈnÈration: Oui
+		- Utilisation dans la g√©n√©ration: Oui
+		
+D√©s que l'on modifie le code du projet Automates, il faut le Build sans quoi le projet UnitTest1 ne verrait pas les modifs (car cela compile aussi dans un fichier .lib qui est donn√© au projet de tests)
