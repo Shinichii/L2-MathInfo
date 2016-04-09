@@ -53,8 +53,10 @@ public:
 	void ajouterEtat(int etat);
 	void ajouterTransition(int from, char label, int to);
 	void ajouterTransition(Transition t);
-	bool reconnaitMot(string s);
 	
+	bool reconnaitMot(string s);
+	bool estComplet();
+
 	void setDebugged(bool b);
 
 	friend ostream& operator<<(ostream& stream, const Automate& a);

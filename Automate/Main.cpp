@@ -7,7 +7,7 @@ int main(int argc, char * argv[])
 {
 	AutomateFileParser afp;
 	afp.setDebugged(true);
-	afp.loadFile("automate_tests.txt");
+	afp.loadFile("automate_presque_complet1.txt");
 
 	try
 	{
@@ -18,8 +18,11 @@ int main(int argc, char * argv[])
 		a.ajouterEntree(0);
 		a.ajouterSortie(1);
 		
-		cout << a << endl;
-		cout << "Reconnait mot 'aaaba' ? " << a.reconnaitMot("aaaba") << endl;
+		cout << endl << a << endl << endl;
+
+		cout << "Reconnait mot 'aaaba' ? " << a.reconnaitMot("aaaba") << endl << endl;
+
+		cout << "Est complet? " << (a.estComplet() ? "Oui" : "Non") << endl;
 	}
 	catch(exception& e)
 	{

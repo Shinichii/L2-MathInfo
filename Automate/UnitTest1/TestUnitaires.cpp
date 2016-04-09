@@ -4,7 +4,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace UnitTest1
+namespace TestUnitaires
 {		
 	TEST_CLASS(AutomateFileParserTests)
 	{
@@ -69,6 +69,14 @@ namespace UnitTest1
 			Assert::AreEqual(1, (int)a.entrees.size());
 			Assert::AreEqual(2, (int)a.sorties.size());
 			Assert::AreEqual(4, (int)a.transitions.size());
+		}
+	};
+
+	TEST_CLASS(AutomateTests)
+	{
+		TEST_METHOD(Test)
+		{
+
 		}
 	};
 }
