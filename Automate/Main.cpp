@@ -15,6 +15,8 @@ int main(int argc, char * argv[])
 	a.ajouterEntree(0);
 	a.ajouterSortie(1);
 
+	cout << a << endl;
+
 	cout << "Reconnait mot 'aaaba' ? " << a.reconnaitMot("aaaba") << endl;
 
 	system("pause");
