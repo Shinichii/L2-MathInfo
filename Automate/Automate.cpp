@@ -122,3 +122,30 @@ Automate::Transition * Automate::trouverTransition(int etat, char label)
 
 	return nullptr;
 }
+
+ostream & operator<<(ostream & stream, const Automate & a)
+{
+	int nbSymboles = a.alphabet.length();
+	int nbEtats = a.etats.size();
+	int nbEntrees = a.entrees.size();
+	int nbSorties = a.sorties.size();
+	int nbTransitions = a.transitions.size();
+
+	stream << "Nb symboles alphabet: " << nbSymboles << endl;
+	stream << "Nb etats: " << nbEtats << endl;
+	stream << "Etats initiaux: " << nbEntrees << endl << "\t";
+	for(vector<int>::const_iterator it = a.entrees.begin(); it != a.entrees.end(); it++)
+		stream << *it << " ";
+
+	stream << endl << "Etats terminaux: " << nbSorties << endl << "\t";
+	for(vector<int>::const_iterator it = a.sorties.begin(); it != a.sorties.end(); it++)
+		stream << *it << " ";
+	stream << endl;
+
+	stream << endl << "Transitions: " << nbTransitions << endl;
+	for(vector<Automate::Transition>::const_iterator it = a.transitions.begin(); it != a.transitions.end(); it++)
+		stream << "\t" << *it << endl;
+	stream << endl;
+
+	return stream;
+}
