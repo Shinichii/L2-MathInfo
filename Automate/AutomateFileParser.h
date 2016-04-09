@@ -7,6 +7,16 @@
 #include <sstream>
 #include "Automate.h"
 
+#define WINDOWS
+
+#ifdef WINDOWS
+	#include <direct.h>
+	#define GetCurrentDir _getcwd
+#else
+	#include <unistd.h>
+	#define GetCurrentDir getcwd
+#endif
+
 #define private public
 
 class AutomateFileParser
@@ -16,18 +26,21 @@ private:
 	string path;
 	bool fileLoaded = false;
 	ifstream file;
-
 	bool isDebugged = false;
+
+	class GenerationAutomateException : public exception
+	{
+		virtual const char* what() const throw()
+		{
+			return "Impossible de construire l'automate a partir du fichier!";
+		}
+	} GenerationAutomateException;
 
 public:
 	AutomateFileParser();
 	~AutomateFileParser();
 	void loadFile(string path);
 	Automate* generate();
-
-	string getAlphabet();
-	// ...
-
 	void setDebugged(bool b);
 
 private:

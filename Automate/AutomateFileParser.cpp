@@ -22,7 +22,10 @@ void AutomateFileParser::loadFile(string path)
 	}
 	else
 	{
-		if(isDebugged) cout << "[ERREUR] Impossible d'ouvrir le fichier spécifié!" << endl;
+		char cCurrentPath[FILENAME_MAX];
+		GetCurrentDir(cCurrentPath, sizeof(cCurrentPath));
+
+		if(isDebugged) cout << "[ERREUR] Impossible d'ouvrir le fichier spécifié! (" << cCurrentPath << path << ")" << endl;
 		file.close();
 	}
 }
@@ -32,8 +35,8 @@ Automate* AutomateFileParser::generate()
 {
 	if(!fileLoaded) 
 	{
-		if(isDebugged) cout << "[ERREUR] Impossible de generer l'automate" << endl;
-		return nullptr;
+		if(isDebugged) cout << "[ERREUR] Impossible de generer l'automate (fichier inexistant)" << endl;
+		throw AutomateFileParser::GenerationAutomateException;
 	}
 
 	int nbSymboles, nbEtats, nbTransitions, nbEtatsInitiaux, nbEtatsFinaux;
