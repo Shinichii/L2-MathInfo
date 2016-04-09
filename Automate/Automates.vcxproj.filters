@@ -40,5 +40,11 @@
     <Text Include="automate_tests.txt">
       <Filter>Data</Filter>
     </Text>
+    <Text Include="automate_complet1.txt">
+      <Filter>Data</Filter>
+    </Text>
+    <Text Include="automate_presque_complet1.txt">
+      <Filter>Data</Filter>
+    </Text>
   </ItemGroup>
 </Project>

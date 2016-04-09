@@ -124,6 +124,28 @@ bool Automate::reconnaitMot(string s)
 	return true;
 }
 
+bool Automate::estComplet()
+{
+	//On parcours tous les états
+	for(int i = 0; i < etats.size(); i++)
+	{
+		//On parcours tous les caracteres de l'alphabet
+		for(int j = 0; j < alphabet.length(); j++)
+		{
+			char c = alphabet.at(j);
+
+			//Une transition existe-t-elle pour cette lettre et cet état ?
+			if(trouverTransition(i, c) == nullptr)
+			{
+				//Si il en manque une, il n'est pas complet
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
+
 //Passe ou non l'automate en mode de debug (messages d'erreurs/infos)
 void Automate::setDebugged(bool b)
 {

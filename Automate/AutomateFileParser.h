@@ -30,6 +30,7 @@ public:
 	AutomateFileParser();
 	~AutomateFileParser();
 	void loadFile(string path);
+	void closeFile();
 	Automate* generate();
 	void setDebugged(bool b);
 

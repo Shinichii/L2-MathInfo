@@ -13,6 +13,8 @@ AutomateFileParser::~AutomateFileParser()
 //Charge en mémoire le fichier contenant les données de l'automate
 void AutomateFileParser::loadFile(string path)
 {
+	closeFile();
+
 	this->path = path;
 
 	file.open(path, ifstream::in);
@@ -25,6 +27,14 @@ void AutomateFileParser::loadFile(string path)
 		if(isDebugged) cout << "[ERREUR] Impossible d'ouvrir le fichier spécifié! (" << path << ")" << endl;
 		file.close();
 	}
+}
+
+void AutomateFileParser::closeFile()
+{
+	if(fileLoaded)
+		file.close();
+
+	path = "";
 }
 
 //Génére l'automate à partir du fichier
