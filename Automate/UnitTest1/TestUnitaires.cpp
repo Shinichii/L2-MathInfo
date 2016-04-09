@@ -74,9 +74,31 @@ namespace TestUnitaires
 
 	TEST_CLASS(AutomateTests)
 	{
-		TEST_METHOD(Test)
+		TEST_METHOD(Test_estComplet)
 		{
+			try
+			{
+				AutomateFileParser afp;
+				afp.loadFile("../automate_complet1.txt");
 
+				Automate complet = *afp.generate();
+				Assert::IsTrue(complet.estComplet());
+
+				afp.loadFile("../automate_presque_complet1.txt");
+
+				Automate presque = *afp.generate();
+				Assert::IsFalse(presque.estComplet());
+
+				afp.loadFile("../automate_tests.txt");
+				
+				Automate nope = *afp.generate();
+				Assert::IsFalse(nope.estComplet());
+			}
+			catch(exception& e)
+			{
+				cout << "[EXCEPTION] " << e.what() << endl;
+				Assert::Fail();
+			}
 		}
 	};
 }

@@ -13,6 +13,8 @@ AutomateFileParser::~AutomateFileParser()
 //Charge en mémoire le fichier contenant les données de l'automate
 void AutomateFileParser::loadFile(string path)
 {
+	closeFile();
+
 	this->path = path;
 
 	file.open(path, ifstream::in);
