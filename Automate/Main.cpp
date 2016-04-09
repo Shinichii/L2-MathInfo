@@ -1,22 +1,33 @@
 #include <iostream>
 #include <string>
 #include "Automate.h"
+#include "AutomateFileParser.h"
 
 int main(int argc, char * argv[])
 {
-	Automate a("ab");
+	AutomateFileParser afp;
+	afp.setDebugged(true);
+	afp.loadFile("automate_presque_complet1.txt");
 
-	a.setDebugged(true);
+	try
+	{
+		Automate a = *afp.generate();
+		a.setDebugged(true);
+		a.ajouterTransition(0, 'a', 0);
+		a.ajouterTransition(0, 'b', 1);
+		a.ajouterEntree(0);
+		a.ajouterSortie(1);
+		
+		cout << endl << a << endl << endl;
 
-	a.ajouterTransition(0, 'a', 0);
-	a.ajouterTransition(0, 'b', 1);
+		cout << "Reconnait mot 'aaaba' ? " << a.reconnaitMot("aaaba") << endl << endl;
 
-	a.ajouterEntree(0);
-	a.ajouterSortie(1);
-
-	cout << a << endl;
-
-	cout << "Reconnait mot 'aaaba' ? " << a.reconnaitMot("aaaba") << endl;
+		cout << "Est complet? " << (a.estComplet() ? "Oui" : "Non") << endl;
+	}
+	catch(exception& e)
+	{
+		cout << "[EXCEPTION] " << e.what() << endl;
+	}
 
 	system("pause");
 }

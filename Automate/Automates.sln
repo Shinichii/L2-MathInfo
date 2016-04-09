@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Automates", "Automates.vcxproj", "{DA761F6E-D7B4-4827-8BB4-EFF2136E9058}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest1", "UnitTest1\UnitTest1.vcxproj", "{E383C40D-97D4-4D37-A63C-7A2552D72AA1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{DA761F6E-D7B4-4827-8BB4-EFF2136E9058}.Release|x64.Build.0 = Release|x64
 		{DA761F6E-D7B4-4827-8BB4-EFF2136E9058}.Release|x86.ActiveCfg = Release|Win32
 		{DA761F6E-D7B4-4827-8BB4-EFF2136E9058}.Release|x86.Build.0 = Release|Win32
+		{E383C40D-97D4-4D37-A63C-7A2552D72AA1}.Debug|x64.ActiveCfg = Debug|x64
+		{E383C40D-97D4-4D37-A63C-7A2552D72AA1}.Debug|x64.Build.0 = Debug|x64
+		{E383C40D-97D4-4D37-A63C-7A2552D72AA1}.Debug|x86.ActiveCfg = Debug|Win32
+		{E383C40D-97D4-4D37-A63C-7A2552D72AA1}.Debug|x86.Build.0 = Debug|Win32
+		{E383C40D-97D4-4D37-A63C-7A2552D72AA1}.Release|x64.ActiveCfg = Release|x64
+		{E383C40D-97D4-4D37-A63C-7A2552D72AA1}.Release|x64.Build.0 = Release|x64
+		{E383C40D-97D4-4D37-A63C-7A2552D72AA1}.Release|x86.ActiveCfg = Release|Win32
+		{E383C40D-97D4-4D37-A63C-7A2552D72AA1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
