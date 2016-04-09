@@ -27,6 +27,14 @@ void AutomateFileParser::loadFile(string path)
 	}
 }
 
+void AutomateFileParser::closeFile()
+{
+	if(fileLoaded)
+		file.close();
+
+	path = "";
+}
+
 //Génére l'automate à partir du fichier
 Automate* AutomateFileParser::generate()
 {
