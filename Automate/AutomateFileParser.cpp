@@ -22,10 +22,7 @@ void AutomateFileParser::loadFile(string path)
 	}
 	else
 	{
-		char cCurrentPath[FILENAME_MAX];
-		GetCurrentDir(cCurrentPath, sizeof(cCurrentPath));
-
-		if(isDebugged) cout << "[ERREUR] Impossible d'ouvrir le fichier spécifié! (" << cCurrentPath << path << ")" << endl;
+		if(isDebugged) cout << "[ERREUR] Impossible d'ouvrir le fichier spécifié! (" << path << ")" << endl;
 		file.close();
 	}
 }
