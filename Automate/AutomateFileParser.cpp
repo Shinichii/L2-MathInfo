@@ -137,7 +137,7 @@ void AutomateFileParser::convertStringToTransitionData(string s, int * from, cha
 
 	while(s[i] != 0)
 	{
-		if(s[i] >= 'a' && s[i] <= 'z')
+		if((s[i] >= 'a' && s[i] <= 'z') || s[i] == '%')
 		{
 			*from = atoi(s.substr(0, i).c_str());
 			*label = s.at(i);

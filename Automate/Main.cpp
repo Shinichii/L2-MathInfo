@@ -2,6 +2,7 @@
 #include <string>
 #include "Automate.h"
 #include "AutomateFileParser.h"
+#include "AutomateTests.h"
 
 int main(int argc, char * argv[])
 {
@@ -22,7 +23,7 @@ int main(int argc, char * argv[])
 
 		cout << "Reconnait mot 'aaaba' ? " << a.reconnaitMot("aaaba") << endl << endl;
 
-		cout << "Est complet? " << (a.estComplet() ? "Oui" : "Non") << endl;
+		suite_Tests(a);
 	}
 	catch(exception& e)
 	{

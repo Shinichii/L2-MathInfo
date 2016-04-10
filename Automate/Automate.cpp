@@ -124,6 +124,41 @@ bool Automate::reconnaitMot(string s)
 	return true;
 }
 
+bool Automate::estSynchrone()
+{
+	for (int i = 0; i < etats.size(); i++)
+	{
+		if (trouverTransition(i, '%') != nullptr)
+		{
+			//Si on trouve une transition mot vide
+			return false;
+		}
+	}
+	return true;
+}
+bool Automate::estDeterministe()
+{
+	//On verifie le nombre d'états, s'il en a plus d'un, l'automate n'est pas déterministe
+	if (entrees.size() != 1)
+	{
+		return false;
+	}
+	//Dans le cas où il n'y a qu'une seule entrée il faut vérifier CHAQUE état qu'il n'y ait bien qu'une seule transition libelle 
+	for (int i = 0; i < etats.size(); i++)
+	{
+		for (int j = 0; j < transitions.size(); j++)
+		{
+			for (int k = 0; k < transitions.size(); k++)
+			{
+				if (k != j && transitions.at(k).from == transitions.at(j).from && transitions.at(k).label == transitions.at(j).from)
+				{
+					return false;
+				}
+			}
+		}
+	}
+	return true;
+}
 bool Automate::estComplet()
 {
 	//On parcours tous les états
