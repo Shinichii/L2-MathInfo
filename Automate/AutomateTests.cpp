@@ -2,7 +2,26 @@
 
 void suite_Tests(Automate a)
 {
-	cout << "Est synchrone ?" << (a.estSynchrone() ? "Oui" : "Non") << endl;
-	cout << "Est deterministe ?" << (a.estDeterministe() ? "Oui" : "Non") << endl;
-	cout << "Est complet? " << (a.estComplet() ? "Oui" : "Non") << endl;
+	if (!a.estSynchrone())
+	{
+		cout << "L'automate est asynchrone" << endl;
+		//Appeler l'algo de déterminisation synchrone
+		return;
+	}
+	cout << "L'automate est synchrone" << endl;
+	if (!a.estDeterministe())
+	{
+		cout << "L'automate n'est PAS deterministe" << endl;
+		return;
+		//Appeler l'algo de determinisation synchrone
+	}
+	cout << "L'automate est deterministe" << endl;
+	if (!a.estComplet())
+	{
+		cout << "L'automate n'est pas complet" << endl;
+		return;
+		//Appeler l'algo de completion
+	}
+	cout << "L'automate est complet" << endl;
+	return;
 }
