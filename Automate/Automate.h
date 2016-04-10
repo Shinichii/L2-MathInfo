@@ -41,6 +41,13 @@ private:
 	vector<int> sorties;
 	string alphabet;
 
+	//Cache system
+	bool dirtyComplet = true;
+	bool dirtySynchrone = true;
+	bool dirtyDeterministe = true;
+	bool etaitComplet, etaitSynchrone, etaitDeterministe;
+	bool cacheEnabled = true;
+
 	bool debugged = false;
 
 public:
@@ -58,6 +65,10 @@ public:
 	bool estSynchrone();
 	bool estDeterministe();
 	bool estComplet();
+
+	void makeDirty();
+	void cacheTest(bool * dirtyFlag, bool * state, bool val);
+	void setCached(bool b);
 
 	void setDebugged(bool b);
 
