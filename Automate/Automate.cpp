@@ -13,7 +13,10 @@ void Automate::ajouterEntree(int etat)
 	bool entreeExiste = find(entrees.begin(), entrees.end(), etat) != entrees.end();
 
 	if(!entreeExiste)
+	{
 		entrees.push_back(etat);
+		makeDirty();
+	}
 	else if(debugged)
 		cout << "[INFO] On ne peut ajouter l'entree " << etat << ", elle existe deja." << endl;
 }
@@ -24,7 +27,10 @@ void Automate::ajouterSortie(int etat)
 	bool sortieExiste = find(sorties.begin(), sorties.end(), etat) != sorties.end();
 
 	if(!sortieExiste)
+	{
 		sorties.push_back(etat);
+		makeDirty();
+	}
 	else if(debugged)
 		cout << "[INFO] On ne peut ajouter la sortie " << etat << ", elle existe deja." << endl;
 }
@@ -39,7 +45,10 @@ bool Automate::etatExiste(int etat)
 void Automate::ajouterEtat(int etat)
 {
 	if(!etatExiste(etat))
+	{
 		etats.push_back(etat);
+		makeDirty();
+	}
 }
 
 //Indique si un etat est une entree
@@ -76,6 +85,8 @@ void Automate::ajouterTransition(Transition t)
 			ajouterEtat(t.from);
 		if(!etatExiste(t.to))
 			ajouterEtat(t.to);
+
+		makeDirty();
 	}
 	else if(debugged)
 		cout << "\t[ERREUR] La transition existe déjà!" << endl;
@@ -124,23 +135,42 @@ bool Automate::reconnaitMot(string s)
 	return true;
 }
 
+//Teste le synchronisme d'un automate
 bool Automate::estSynchrone()
 {
+	//Cache
+	if(!dirtySynchrone && cacheEnabled) return etaitSynchrone;
+
 	for (int i = 0; i < etats.size(); i++)
 	{
 		if (trouverTransition(i, '%') != nullptr)
 		{
+			//On stocke le resultat dans le cache
+			cacheTest(&dirtySynchrone, &etaitSynchrone, false);
+
 			//Si on trouve une transition mot vide
 			return false;
 		}
 	}
+
+	//On stocke le resultat dans le cache
+	cacheTest(&dirtySynchrone, &etaitSynchrone, true);
+
 	return true;
 }
+
+//Teste le determinisme de l'automate
 bool Automate::estDeterministe()
 {
-	//On verifie le nombre d'états, s'il en a plus d'un, l'automate n'est pas déterministe
+	//Cache
+	if(!dirtyDeterministe && cacheEnabled) return etaitDeterministe;
+
+	//On verifie le nombre d'états d'entree, s'il en a plus d'un, l'automate n'est pas déterministe
 	if (entrees.size() != 1)
 	{
+		//On stocke le resultat dans le cache
+		cacheTest(&dirtyDeterministe, &etaitDeterministe, false);
+
 		return false;
 	}
 	//Dans le cas où il n'y a qu'une seule entrée il faut vérifier CHAQUE état qu'il n'y ait bien qu'une seule transition libelle 
@@ -152,15 +182,27 @@ bool Automate::estDeterministe()
 			{
 				if (k != j && transitions.at(k).from == transitions.at(j).from && transitions.at(k).label == transitions.at(j).from)
 				{
+					//On stocke le resultat dans le cache
+					cacheTest(&dirtyDeterministe, &etaitDeterministe, false);
+
 					return false;
 				}
 			}
 		}
 	}
+
+	//On stocke le resultat dans le cache
+	cacheTest(&dirtyDeterministe, &etaitDeterministe, true);
+
 	return true;
 }
+
+//Teste la completion d'un automate
 bool Automate::estComplet()
 {
+	//Cache
+	if(!dirtyComplet && cacheEnabled) return etaitComplet;
+
 	//On parcours tous les états
 	for(int i = 0; i < etats.size(); i++)
 	{
@@ -172,13 +214,42 @@ bool Automate::estComplet()
 			//Une transition existe-t-elle pour cette lettre et cet état ?
 			if(trouverTransition(i, c) == nullptr)
 			{
-				//Si il en manque une, il n'est pas complet
+				//On stocke le resultat dans le cache
+				cacheTest(&dirtyComplet, &etaitComplet, false);
+
+				//Si il en manque une, il n'est pas complet0
 				return false;
 			}
 		}
 	}
 
+	//On stocke le resultat dans le cache
+	cacheTest(&dirtyComplet, &etaitComplet, true);
+
 	return true;
+}
+
+//Invalide le cache de tests
+void Automate::makeDirty()
+{
+	dirtyComplet = true;
+	dirtySynchrone = true;
+	dirtyDeterministe = true;
+}
+
+//Passe le flag dirty à false, et cache la valeur val dans state
+void Automate::cacheTest(bool * dirtyFlag, bool * state, bool val)
+{
+	if(cacheEnabled)
+	{
+		*dirtyFlag = false;
+		*state = val;
+	}
+}
+
+void Automate::setCached(bool b)
+{
+	this->cacheEnabled = b;
 }
 
 //Passe ou non l'automate en mode de debug (messages d'erreurs/infos)

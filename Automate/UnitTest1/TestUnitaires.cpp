@@ -90,9 +90,63 @@ namespace TestUnitaires
 				Assert::IsFalse(presque.estComplet());
 
 				afp.loadFile("../automate_tests.txt");
-				
+
 				Automate nope = *afp.generate();
 				Assert::IsFalse(nope.estComplet());
+			}
+			catch(exception& e)
+			{
+				cout << "[EXCEPTION] " << e.what() << endl;
+				Assert::Fail();
+			}
+		}
+
+		TEST_METHOD(PerfTest_estComplet_cached_100000it)
+		{
+			try
+			{
+				AutomateFileParser afp;
+				afp.loadFile("../automate_presque_complet1.txt");
+
+				Automate presque = *afp.generate();
+				presque.setCached(true);
+
+				for(int i = 0; i < 50000; i++)
+					Assert::IsFalse(presque.estComplet());
+
+				//On le complete
+				presque.ajouterTransition(2, 'b', 2);
+
+				for(int i = 0; i < 50000; i++)
+					Assert::IsTrue(presque.estComplet());
+
+			}
+			catch(exception& e)
+			{
+				cout << "[EXCEPTION] " << e.what() << endl;
+				Assert::Fail();
+			}
+		}
+
+		TEST_METHOD(PerfTest_estComplet_uncached_100000it)
+		{
+			try
+			{
+				AutomateFileParser afp;
+				afp.loadFile("../automate_presque_complet1.txt");
+
+				Automate presque = *afp.generate();
+				presque.setCached(false);
+
+				for(int i = 0; i < 50000; i++)
+					Assert::IsFalse(presque.estComplet());
+
+				//On le complete
+				presque.ajouterTransition(2, 'b', 2);
+
+				for(int i = 0; i < 50000; i++)
+					Assert::IsTrue(presque.estComplet());
+
 			}
 			catch(exception& e)
 			{
